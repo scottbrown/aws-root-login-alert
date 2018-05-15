@@ -1,0 +1,42 @@
+---
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Alerts when AWS root has logged into the console"
+
+Parameters:
+  RecipientEmailAddress:
+    Type: String
+    Description: "Email address that receives the alerts"
+
+Resources:
+  AlertTopic:
+    Type: "AWS::SNS::Topic"
+    Properties:
+      DisplayName: "AWS Root Login Alert"
+      Subscription:
+        - Protocol: email
+          Endpoint: !Ref RecipientEmailAddress
+  CloudwatchEventRule:
+    Type: "AWS::Events::Rule"
+    Properties:
+      Description: >
+        Watches for when the AWS root user signs into the console.
+      EventPattern:
+        detail:
+          userIdentity:
+            type:
+              - "Root"
+          eventName:
+            - "ConsoleLogin"
+          responseElements:
+            ConsoleLogin:
+              - "Success"
+      State: "ENABLED"
+      Targets:
+        - Arn: !Ref AlertTopic
+          Id: !GetAtt AlertTopic.TopicName
+
+Outputs:
+  AlertTopicArn:
+    Value: !Ref AlertTopic
+    Description: "ARN of the topic that receives alerts"
+
