@@ -34,6 +34,20 @@ Resources:
       Targets:
         - Arn: !Ref AlertTopic
           Id: !GetAtt AlertTopic.TopicName
+  TopicPolicy:
+    Type: "AWS::SNS::TopicPolicy"
+    Properties:
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: "AllowCWEToPublishAlertsToSNS"
+            Effect: "Allow"
+            Principal:
+              Service: "events.amazonaws.com"
+            Action: "sns:Publish"
+            Resource: !Ref AlertTopic
+      Topics:
+        - !Ref AlertTopic
 
 Outputs:
   AlertTopicArn:
