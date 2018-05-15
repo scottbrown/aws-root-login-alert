@@ -39,4 +39,6 @@ Outputs:
   AlertTopicArn:
     Value: !Ref AlertTopic
     Description: "ARN of the topic that receives alerts"
+    Export:
+      Name: "root-login-alerts:sns:topic:arn"
 
