@@ -1,5 +1,9 @@
 # aws-root-login-alert
 
+![Knowledge-Intermediate](https://img.shields.io/badge/Knowledge-Intermediate-yellow.svg)
+![Cloud-AWS](https://img.shields.io/badge/Cloud-AWS-orange.svg)
+![Category-Security](https://img.shields.io/badge/Category-Security-blue.svg)
+
 Alerts when the AWS root user logs into AWS by sending an email to a
 designated email address.  This infrastructure is intended to be
 long-lived and requires no up-keep.  It should run for free or close
