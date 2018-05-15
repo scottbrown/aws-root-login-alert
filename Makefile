@@ -14,6 +14,8 @@ help: ## show this message
 create-stack: get-profile get-region get-email ## launch the stack into AWS
 	@aws cloudformation create-stack --stack-name $(stack.name) --template-body file://template.cft --parameters ParameterKey=RecipientEmailAddress,ParameterValue=$(RECIPIENT_EMAIL) --tags Key=project,Value=$(project.name) Key=owner,Value=$(stack.owner) Key=repository,Value=$(project.repo) Key=lifetime,Value=$(stack.lifetime) --enable-termination-protection --region $(AWS_REGION) --profile $(AWS_PROFILE) --stack-policy-body file://policy.json
 
+# You must first remove stack termination protection before
+# deleting the stack, to prevent accidents.
 delete-stack: get-profile get-region ## remove the stack from AWS
 	@aws cloudformation delete-stack --stack-name $(stack.name) --region $(AWS_REGION) --profile $(AWS_PROFILE)
 
