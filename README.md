@@ -35,6 +35,13 @@ access to the recipient email address you used in the create-stack
 command in order to confirm the SNS topic subscription and allow
 CloudFormation to proceed with the rest of the stack creation.
 
+## Extending This Project
+
+If you want to extend this project's feature set to something other than
+an email-based alert, there is no need to modify this project's template.
+This is easily done by importing the `AlertTopicArn` into another template
+through `!ImportValue` and attaching a subscription to it.
+
 ## License
 
 MIT License.  Please see [LICENSE](LICENSE) for more information.
